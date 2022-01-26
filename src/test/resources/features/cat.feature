@@ -27,9 +27,10 @@ Feature: CatApi Task
     Then body response has "SUCCESS" message
 
   @wip
-  Scenario: deleting a vote which api doesn't have
+  Scenario: getting a vote which api doesn't have
     Given the user deletes a vote and keeps its id
-    When the user tries to delete this id again
+    And the user deletes this id
+    When the user tries to get this element
     Then body response has "NOT_FOUND" message
     Then status code should be 404
 

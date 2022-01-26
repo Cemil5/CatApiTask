@@ -121,8 +121,10 @@ public class CatTask {
         CatUtils.deleteId(idToKeep);
     }
 
-    @When("the user tries to delete this id again")
-    public void the_user_tries_to_delete_this_id_again() {
-        CatUtils.deleteId(idToKeep);
+    @When("the user tries to get this element")
+    public void theUserTriesToGetThisElement() {
+        response = given().accept(ContentType.JSON)
+                .header("x-api-key", "DEMO-API-KEY")
+                .when().get(url + "/"+idToKeep);
     }
 }
