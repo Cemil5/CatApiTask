@@ -21,7 +21,7 @@ public class CatTask {
     Response response;
     List<Map<String ,Object>> allVoteList;
     Map<String ,Object> randomElement;
-    Integer idToKeep;
+    String idToKeep;
 
     @When("the user gets votes information using token")
     public void the_user_gets_votes_information_using_token() {
@@ -53,8 +53,8 @@ public class CatTask {
         Random random = new Random();
         int rnNum = random.nextInt(allVoteList.size());
         randomElement = allVoteList.get(rnNum);
-        double idDouble = (double)randomElement.get("id");
-        int id = (int) idDouble;
+    //    double idDouble = (double)randomElement.get("id");
+        String id = "" + (Double) randomElement.get("id");
         response = given().accept(ContentType.JSON)
                 .header("x-api-key", "DEMO-API-KEY")
                 .when().get(url + "/"+id);
@@ -110,14 +110,14 @@ public class CatTask {
 
     @When("the user deletes this id")
     public void the_user_deletes_this_id() {
-        Integer id = response.path("id");
+        String  id = ""+ response.path("id");
         CatUtils.deleteId(id);
     }
 
     @Given("the user deletes a vote and keeps its id")
     public void the_user_deletes_a_vote_and_keeps_its_id() {
         the_user_create_a_new_vote_with_image_id_and_sub_id_and_value("asf2", "my-user-1234", 1);
-        idToKeep = response.path("id");
+        idToKeep = "" + response.path("id");
         CatUtils.deleteId(idToKeep);
     }
 
